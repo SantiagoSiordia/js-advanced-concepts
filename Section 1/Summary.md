@@ -10,5 +10,15 @@ There are a lot of [Javascript engines](https://en.wikipedia.org/wiki/List_of_EC
 
 Most popular: V8 (written in C++), SpiderMonkey, Chakra.
 
+---
+
 ### Who created the first Javascript engine?
 Breandan Eich, the creator of Javascript, he created SpiderMonkey, which is what Firefox still uses.
+
+---
+
+This is the process it follows:
+
+It applies a lexical analysis to the **JS File**, which breaks the code into **Tokens**, to identify their meaning, so we know what the code is trying to do. These tokens are formed into an asset we call **Abstract syntax tree (AST)**
+
+To view a visual representation of what this AST looks like, I'll leave this tool called [AST explorer](https://astexplorer.net/), which lets you write some <font color="green">Javascript code </font> and then transform it onto AST or an equivalent <font color="red">JSON</font>.
