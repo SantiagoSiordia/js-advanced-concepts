@@ -37,3 +37,41 @@ ECMAScript was created to tell engine creators how Javascript should work.
 ---
 
 ## Interpreters and compilers
+
+In programming there are two ways of translating to machine language or what our computers understand.
+
+### Interpreter
+Translate and read the file line by line on the fly
+
+```JS
+function someCalculation(x, y) {
+    return x + y;
+};
+
+for(let i = 0; i < 1000; i++ ) {
+    someCalculation(5, 4);
+}
+```
+
+### Compiler
+Creates a translation before execution.
+
+![Compiler example](./images/compiling-example.png)
+
+---
+### Babel and Typescript
+
+**Babel** is a Javascript compiler that takes your modern JS code and returns browser compatible JS (older JS code).
+**Typescript** is a superset of Javascript that compiles down to Javascript.
+
+---
+
+### Why choosing compiler or interpreter?
+
+An interpreter allows you instantly run a file.
+
+A compiler has optimization for code, but it takes a bit more time to run at the beginning.
+
+### Isn't there a way to get best of both worlds?
+
+In late 2000 JIT Compiler was born. It mixes some features of both worlds.
