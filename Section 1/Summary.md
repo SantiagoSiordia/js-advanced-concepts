@@ -75,3 +75,67 @@ A compiler has optimization for code, but it takes a bit more time to run at the
 ### Isn't there a way to get best of both worlds?
 
 In late 2000 JIT Compiler was born. It mixes some features of both worlds.
+
+### How to help the javascript engine?
+
+We need know what this next concepts are in order to understand what to do in some rare cases
+
+ - eval()
+ - arguments
+ - for in
+ - with 
+ - delete
+ - hidden classes
+ - inline caching
+
+### Inline caching
+
+```JS
+// inline caching
+
+const findUser = (user) => {
+    return `Found ${user.firstName} ${user.lastName}`
+};
+
+const userData {
+    firstName: 'Santiago',
+    lastName: 'Siordia',
+};
+
+findUser(userData);
+// If we repeat the above line with the same input
+// the compiler will return the inline cached value
+// 'Found Santiago Siordia'
+// this helps optimizing the performance of the code.
+```
+
+### Hidden classes
+
+```JS
+// This next code makes the compiler deoptimize the code (runs slower)
+function Animal(x, y) {
+    this.x = x;
+    this.y = y;
+    // A good option to add new properties would be setting them right here where the constructor sets them.
+}
+
+const obj1 = new Animal(1, 2);
+const obj2 = new Animal(3, 4);
+
+obj1.a = 30;
+obj1.b = 100;
+
+obj1.b = 30; // Assigning new values in no order like this would cause JS to infer this is a different class than what was used before
+obj1.a = 100;
+
+
+```
+
+In the same way, using the `delete` keyword would cause some misperformance.
+
+```JS
+delete obj1.x // Hidden clases don't match anymore 
+```
+
+We should write code that is predictable. Not only for humnas but for machines as well.
+
