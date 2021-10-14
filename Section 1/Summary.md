@@ -157,3 +157,13 @@ We need a **call stack** to keep track of what place we are in the code, so we c
 
 ### Stack overflow
 
+A stack overflow means the call stack is already full and we are continuing to add more framse
+
+### Memory heap how it works.
+
+Javascript gives you a false sense of security with its garbage collector. No system is perfect!
+
+![Garbage collector](./images/garbage-collector.png)
+![Garbage collector marking](./images/gb-mark.png)
+![Garbage collector sweeping](./images/gb-sweep.png)
+![Garbage collector swept](./images/gb-swept.png)
