@@ -167,3 +167,7 @@ Javascript gives you a false sense of security with its garbage collector. No sy
 ![Garbage collector marking](./images/gb-mark.png)
 ![Garbage collector sweeping](./images/gb-sweep.png)
 ![Garbage collector swept](./images/gb-swept.png)
+
+### Causing a memory leak
+
+[Javascript example](./resources/memoryLeak.js);
