@@ -155,6 +155,7 @@ We need a **call stack** to keep track of what place we are in the code, so we c
 
 [Javascript example](./resources/callstack&memoryHeap.js)
 
+
 ### Stack overflow
 
 A stack overflow means the call stack is already full and we are continuing to add more framse
@@ -171,3 +172,10 @@ Javascript gives you a false sense of security with its garbage collector. No sy
 ### Causing a memory leak
 
 [Javascript example](./resources/memoryLeak.js);
+
+Main [three memory leaks](./resources/memoryLeakTypes.js) in normal code:
+ - Global variables.
+ - Event listeners.
+ - setInteval referencing objects inside function
+
+Memory is limited!
