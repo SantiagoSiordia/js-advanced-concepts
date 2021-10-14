@@ -139,3 +139,17 @@ delete obj1.x // Hidden clases don't match anymore
 
 We should write code that is predictable. Not only for humnas but for machines as well.
 
+### Call stack and memory heap
+
+Javascript does a lot of things for us, but th ebiggest thing is reading the code and executing it. This
+
+We need a place to store our variables and a place to run and keep track of  whats happening in our code.
+
+That's call stack and memory heap.
+
+We need the **memory heap** as a place to store and write information.
+
+**Memory heap** is where the memory allocation happens
+
+We need a **call stack** to keep track of what place we are in the code, so we can run it in order.
+
