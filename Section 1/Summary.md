@@ -155,4 +155,5 @@ We need a **call stack** to keep track of what place we are in the code, so we c
 
 [Javascript example](./resources/callstack&memoryHeap.js)
 
+### Stack overflow
 
