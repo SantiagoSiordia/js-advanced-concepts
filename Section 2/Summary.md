@@ -35,7 +35,73 @@ A `function` context is created by the Javascript engine when it sees a function
 	2. Sets `this` to the global object unless in strict mode, where it's undefined.
 - Executing phase
 	3. **Variable Enviroment** created - memory space for variable and functions created
-	4. Initializes all variables to `undefined` and places them into memory with any new functions.
+	4. Initializes all variables to undefined and places them into memory with any new functions.
 
-### Lexical scope
-In javascript our **Lexical scope** (Available data + variables where the function was defined) determines our available variables. Not where the function is called (**dynamic scope**)
+```JS
+function showArgs(arg1, arg2) {
+	console.log("arguments: ", arguments);
+	return `argument 1 is: ${arg1} and argument 2 is: ${arg2}`;
+}
+
+showArgs("Hello", "World!");
+
+// arguments: { 0: "Hello", 1: "World!" }
+// argument 1 is Hello and argument 2 is World!
+
+function noArgs() {
+	console.log("arguments: ", arguments);
+};
+
+noArgs();
+
+// arguments: {}
+// even though there are no arguments, the object is still created.
+
+```
+
+```JS
+function showArgs(arg1, arg2){
+	console.log("arguments: ", arguments);
+	console.log(Array.from(arguments));
+};
+
+showArgs("Hello", "World!");
+
+// arguments: { 0: "Hello", 1: "World!" }
+// [ "Hello", "World!" ]
+
+function showArgs2(...args) {
+	console.log("arguments: ", args);
+	console.log(Array.from(arguments));
+	return `${args[0]} ${args[1]}`
+}
+
+showArgs2("Hello", "World!");
+
+// arguments: [ "Hello", "World!" ]
+// [ "Hello", "World!" ]
+// Hello World!
+
+```
+
+The keyword arguments can be dangerous to use in your code as is. In ES6, a few methods were introduced that can help better use arguments.
+
+### Arrow functions
+
+    Some people think of arrow functions as just being syntactic sugar for a regular function, but arrow functions work a bit differently than a regular function. They are a compact alternative to a regular function, but also without its own bindings to `this`, `arguments`, `super`, or `new` target keywords. Arrow functions cannot be used as constructors and are **NOT** the best option for methods.
+
+```JS
+
+var obj = {
+    // does not create a new scope
+    i: 10,
+    b: () => console.log(this.i, this),
+    c: function() {
+        console.log(this.i, this);
+    }
+}
+
+obj.b(); // prints undefined, Window {...} (or the global object)
+obj.c(); // prints 10, Object {...}
+
+```
