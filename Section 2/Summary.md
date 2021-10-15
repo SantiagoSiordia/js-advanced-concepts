@@ -1,7 +1,7 @@
 # Section 2: Javascript foundations II
 
 ## Execution context
-
+---
 [Javascript file to remember](./resources/executionContext.js)
 
 Code in JavaScript is always ran inside a type of **execution context**. Execution context is simply the environment within which your code is ran. There are 2 types of execution context in JavaScript, global or function. There are 2 stages as well to each context, the creation and executing phase. As the JavaScript engine starts to read your code, it creates something called the **Global Execution Context**.
@@ -12,7 +12,7 @@ Code in JavaScript is always ran inside a type of **execution context**. Executi
     1. Global object is created
     2. Initializes `this` keyword to global
 - Executing phase
-    3. Variable Environment created - memory space for `var` variables and functions created
+    3. Variable Environment created - memory space for `var` variables and `function`s created
     4. Initializes all variables to `undefined` (also known as **hoisting**) and places them with any functions into memory
 
 ```JS
@@ -105,3 +105,93 @@ obj.b(); // prints undefined, Window {...} (or the global object)
 obj.c(); // prints 10, Object {...}
 
 ```
+
+## Hoisting
+----
+
+Hoisting is the process of putting **all variable and function** declarations into memory during the **compile phase**. In JavaScript, `function`s are fully hoisted, `var` variables are hoisted and initialized to `undefined`, and `let` and `const` variables are hoisted but not initialized a value. `var` variables are given a **memory allocation** and initialized a value of `undefined` until they are set to a value in line. So if a `var` variable is used in the code before it is initialized, then it will return `undefined`. However, a `function` can be called from anywhere in the code base because it is **fully hoisted**. If `let` and `const` are used before they are declared, then they will throw a reference error because they have not yet been initialized. 
+
+### TAKEAWAYS
+
+Avoid hoisting when possible. It can cause memory leaks and hard to catch bugs in your code. Use `let` and `const` as your go to variables.
+
+```JS
+ // function expression gets hoisted as undefined
+var sing = function() {
+ console.log("uhhhh la la la");
+}
+
+// function declaration gets fully hoisted
+function sing2() {
+	console.log("ohhhh la la la");
+}
+```
+
+```JS
+
+// function declaration gets hoisted
+function a() {
+	console.log("Hi");
+};
+
+// function declaration gets rewritten in memory
+function a() {
+	console.log("bye");;
+};
+
+a();
+// bye
+
+```
+
+```JS
+
+// variable declaration gets hoisted as undefined
+var favoriteFood = "grapes";
+
+// function expression gets hoisted as undefined
+var foodThoughts = function () {
+	//new execution context created favoriteFood = undefined
+	console.log(`Original favorite food: ${favoriteFood}`);
+	
+	// variable declaration gets hoisted as undefined
+	var favoriteFood = "sushi";
+	
+	console.log(`New favorite food: ${favoriteFood}`)
+};
+
+foodThought();
+
+```
+
+## Lexical environment
+---
+
+A lexical environment is basically the scope or environment the engine is currently reading code in. A new lexical environment is created when curly brackets `{}` are used, even nested brackets `{{...}}` create a new lexical environment. The execution context tells the engine which lexical environment it is currently working in and the lexical scope determines the available variables.
+
+```JS
+
+function one() { 
+	var isValid = true; // local env
+	two(); // new execution context
+} 
+function two() { 
+ 	var isValid; // undefined
+} 
+
+var isValid = false; // global
+one(); 
+
+/*
+ two() isValid = undefined 
+ one() isValid = true 
+ global() isValid = false 
+ ------------------------ 
+ call stack 
+*/
+
+```
+
+## Scope Chain
+---
+
