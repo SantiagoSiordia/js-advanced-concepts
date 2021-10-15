@@ -216,4 +216,21 @@ When we have some `setTimeout` for example, Javascript only knows that it needs 
 
 ### Runtime VS Engine
 
-A good way to explain this is 
+A good way to explain this is...
+
+- A Javascript file is kind of musical notes. Ways for us to write music
+- The Javascript engine is kind of like the composer, he can read the file and make sense of it
+- The runtime is thw whole package where we have the musician but we also give them besides the musical notes all the tools they need.
+
+![Runtime explained](./images/runtime-vs-engine.png)
+
+So... NodeJS... NodeJS is a Runtime!
+
+![Runtime explained](./images/nodejs-system.png)
+![Traditional vs nodejs thread](./images/traditional-vs-nodejs-thread.jpeg)
+
+
+### Optimizing code (Stack overflow)
+
+[Javascript file to optimize](./resources/stackOverflowExercise.js)
+
