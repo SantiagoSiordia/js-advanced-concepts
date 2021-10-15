@@ -36,7 +36,7 @@ ECMAScript was created to tell engine creators how Javascript should work.
 
 ---
 
-## Interpreters and compilers
+### Interpreters and compilers
 
 In programming there are two ways of translating to machine language or what our computers understand.
 
@@ -179,3 +179,41 @@ Main [three memory leaks](./resources/memoryLeakTypes.js) in normal code:
  - setInteval referencing objects inside function
 
 Memory is limited!
+
+### Single thread
+
+It just has one callstack and one memory heap, we will never run two functions in paralell.
+
+### Issue with single thread
+
+Long running tasks are the main issue.
+
+JS is really single threated? Well... now I know that this is kind of a lie. 
+
+## Javascript Runtime!
+
+![JS runtime](./images/js-runtime.png)
+
+### Web API
+
+Comes with the browser. All of them have a JS runtime implementation.
+
+This is used to send HTTP reqs, DOM changes, caching, data base storage on browser.
+
+These APIs are built in low levels languages to take advantage of their own garbage collection. And these APIs are what we call **ASYNCHONOUS**.
+
+### Event loop and Callback queue
+
+**Just scratching the surface of this topic!**
+
+What is this thing?
+
+When we have some `setTimeout` for example, Javascript only knows that it needs to go to the web API for it to handle it properly. JS doesn't natively know what to do with it. The Web API waits for the specified amount of miliseconds and then sends the function to the Callback queue, when it is its turn, the event loop tells Javascript "Hey, I got this function here, now that you're free: execute it."
+
+[Let's do an excercise](./resources/eventLoopAndCallbackQueue.js)
+
+[This](http://latentflip.com/loupe/?code=ZnVuY3Rpb24gcHJpbnRIZWxsbygpIHsNCiAgICBjb25zb2xlLmxvZygnSGVsbG8gZnJvbSBiYXonKTsNCn0NCg0KZnVuY3Rpb24gYmF6KCkgew0KICAgIHNldFRpbWVvdXQocHJpbnRIZWxsbywgMzAwMCk7DQp9DQoNCmZ1bmN0aW9uIGJhcigpIHsNCiAgICBiYXooKTsNCn0NCg0KZnVuY3Rpb24gZm9vKCkgew0KICAgIGJhcigpOw0KfQ0KDQpmb28oKTs%3D!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D) is a tool to help understand how the call stack, event loop and callback queue interact with one another.
+
+### Runtime VS Engine
+
+A good way to explain this is 
