@@ -2,7 +2,7 @@
 
 Understand advanced concepts of Javascript.
 
-- Section 1: JS Foundations
+- [Section 1: JS Foundations](./Section%201)
 - Section 2: JS Foundations II
 - Section 3: Types in JavaScript
 - Section 4: The two pillars: Closures and prototypal inheritance
