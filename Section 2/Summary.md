@@ -255,7 +255,7 @@ In this example, you can see that the functions only get access to the variables
 ![Scope chain call stack](images/scope-chain-callstack.png)
 
 ## JS is weird!
-
+---
 Variable leakage and reference error calling non-anonymous function expression
 
 ```JS
@@ -277,5 +277,64 @@ doodle(); // Error! because it is enclosed in its own scope.
 ```
 
 ## Function and block scope
+---
+Most programming languages are block scoped, meaning every time you see a new `{}` (curly braces) is a new lexical environment. However, JavaScript is functionally scoped, 
+meaning it only creates a new local environment if it sees the keyword function on the 
+global scope. To give us access to block scope, in ES6 `let` and `const` were added to the language. Using these can prevent memory leaks, but there is still an argument to be 
+made for using `var`.
 
+```JS
 
+//Function Scope
+
+function loop() { 
+	for (var i = 0; i < 5; i++) { 
+		console.log(i); 
+	} 
+	console.log("final", i); // returns final 5
+} 
+
+//Block Scope
+
+function loop2() { 
+	for (let i = 0; i < 5; i++) { 
+		// can access i here
+	} 
+	console.log("final", i); // returns an error here
+} 
+loop(); 
+/* 
+	1 
+	2 
+	3 
+	4 
+	final 5 
+*/
+loop2(); // ReferenceError: i is not defined
+
+```
+
+### `let` and `const`
+
+Variable declarations with `let` and `const` work differently from the `var` variable declaration. When a lexical scope is entered and the execution context is created, the engine allocates memory for any var variable in that scope and initializes it to `undefined`. The `let` and `const` variables only get initialized on the line they are executed on and only get allocated `undefined` if there is no assignment to the variable. Trying to access a `let` or `const` variable before it is declared or outside of its block without returning it will result in a `Reference Error`.
+
+## IIFE - Immediately invoked function expression
+---
+Immediately Invoked Function Expression or more simply **IIFE** is a JavaScript function that runs as soon as it is defined. Can also be referred to as a Self-Executing Anonymous Function.
+
+```JS
+// Grouping Operator () creates a lexical scope
+
+(function() { 
+	// statements
+})(); 
+
+// Immediately invokes the function with 2nd set of ()
+```
+
+### Takeaways
+Avoid polluting the global namespace or scope when possible
+
+## this
+---
+![dun-dun-dun](./images/dun-dun-dun.png)
