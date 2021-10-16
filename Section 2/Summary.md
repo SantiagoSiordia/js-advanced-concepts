@@ -111,7 +111,7 @@ obj.c(); // prints 10, Object {...}
 
 Hoisting is the process of putting **all variable and function** declarations into memory during the **compile phase**. In JavaScript, `function`s are fully hoisted, `var` variables are hoisted and initialized to `undefined`, and `let` and `const` variables are hoisted but not initialized a value. `var` variables are given a **memory allocation** and initialized a value of `undefined` until they are set to a value in line. So if a `var` variable is used in the code before it is initialized, then it will return `undefined`. However, a `function` can be called from anywhere in the code base because it is **fully hoisted**. If `let` and `const` are used before they are declared, then they will throw a reference error because they have not yet been initialized. 
 
-### TAKEAWAYS
+### Takeaways
 
 Avoid hoisting when possible. It can cause memory leaks and hard to catch bugs in your code. Use `let` and `const` as your go to variables.
 
@@ -168,15 +168,14 @@ foodThought();
 ---
 
 A lexical environment is basically the scope or environment the engine is currently reading code in. A new lexical environment is created when curly brackets `{}` are used, even nested brackets `{{...}}` create a new lexical environment. The execution context tells the engine which lexical environment it is currently working in and the lexical scope determines the available variables.
-
+ 
 ```JS
 
-function one() { 
+function one() {  
 	var isValid = true; // local env
 	two(); // new execution context
 } 
-function two() { 
- 	var isValid; // undefined
+function two() {  
 } 
 
 var isValid = false; // global
@@ -194,4 +193,89 @@ one();
 
 ## Scope Chain
 ---
+
+![Scope chain](./images/scope-chain.png)
+
+Each environment context that is created has a link outside of its lexical environment called the **scope chain**. The **scope chain** gives us access to variables in the parent environment.
+
+```JS
+var x = "x"; 
+
+function findName() { 
+ console.log(x); 
+ var b = "b"; 
+ return printName(); 
+} 
+
+function printName() { 
+ var c = "c"; 
+ return "Brittney Postma"; 
+} 
+
+function sayMyName() { 
+ var a = "a"; 
+ return findName(); 
+} 
+
+sayMyName();
+
+// sayMyName runs a = 'a'
+// findName runs
+// x
+// b = 'b'
+// printName runs c = 'c'
+// Brittney Postma
+
+```
+
+In this example, all the functions have access to the global variable x, but trying to access a variable from another function would return an error. The example below will show how the scope chain links each function.
+
+```JS
+
+function sayMyName() { 
+	var a = "a"; 
+	console.log(b, c); // returns error
+	return function findName() { 
+		var b = "b"; 
+		console.log(a); // a
+		console.log(c); // returns error
+		return function printName() { 
+			var c = "c"; 
+			console.log(a, b); // a, b
+		}; 
+	}; 
+};
+
+sayMyName()()(); //each function is returned and has to be called
+
+```
+
+In this example, you can see that the functions only get access to the variables in their parent container, not a child. The scope chain only links down the call stack, so you  almost have to think of it in reverse. It goes up to the parent, but down the call stack.
+
+![Scope chain call stack](images/scope-chain-callstack.png)
+
+## JS is weird!
+
+Variable leakage and reference error calling non-anonymous function expression
+
+```JS
+
+// It asks global scope for height.
+// Global scope says: ummm... no but here I just created it for you.
+// We call this leakage of global variables.
+// Adding 'use strict' to the file prevents this and causes an error.
+function weird() { 
+ 	height = 50; 
+} 
+var heyhey = function doodle() { 
+ 	// code here
+}; 
+
+heyhey(); 
+doodle(); // Error! because it is enclosed in its own scope.
+
+```
+
+## Function and block scope
+
 
