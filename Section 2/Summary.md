@@ -579,3 +579,144 @@ d.say()(); // d {name: 'jay', say()...}
 ```
 
 After everything is said and done, using this can still be a bit confusing. If you aren't sure what it's referencing, just console.log(this) and see where it's pointing.
+
+## `call`, `apply`, `bind`.
+---
+
+### Call
+Call is a method of an `object` that can substitute a different `object` than the one it is written on.
+
+```JS
+const wizard = {
+	name: "Merlin",
+	health: 100,
+	heal(num1, num2) {
+		return (this.health += num1 + num2);
+	}
+};
+
+const archer = { 
+	name: "Robin Hood", 
+	health: 30
+};
+
+console.log(archer); // health: 30
+
+wizard.heal.call(archer, 50, 20); 
+
+console.log(archer); // health: 100
+```
+
+In this example `call` is used to borrow the heal method from the wizard and is used on the archer (which is actually pointing `this` to archer), with the optional arguments added.
+
+### Apply
+
+`Apply` is almost identical to `call`, except that instead of a comma separated list of arguments, it takes an array of arguments.
+
+```JS
+// instead of this
+// wizard.heal.call(archer, 50, 20)
+// apply looks like this
+wizard.heal.apply(archer, [50, 20]); 
+// this has the same result
+```
+
+### Bind
+
+Unlike `call` and `apply`, `bind` does not run the method it is used on, but rather returns a new `function` that can then be called later.
+
+```JS
+console.log(archer); // health: 30
+const healArcher = wizard.heal.bind(archer, 50, 20); 
+healArcher(); 
+console.log(archer); // health: 100
+```
+
+### Exercise: Find the largest number in an array
+
+```JS
+const array = [1, 2, 3]; 
+function getMaxNumber(arr) { 
+ 	return Math.max.apply(null, arr); 
+} 
+getMaxNumber(array); // 3
+```
+
+### Currying With Bind
+
+**Currying** is breaking down a `function` with multiple `arguments` into one or more functions that each accept a single `argument`.
+
+```JS
+function multiply(a, b) {
+	return a * b;
+}
+const multiplyByTwo = multiply.bind(this, 2);
+multiplyByTwo(4); // 8
+const multiplyByTen = multiply.bind(this, 10);
+multiplyByTen(6); // 60
+```
+
+### Exercise 2: How can I fix this?
+
+```JS
+var b = {
+	name: "jay",
+	say() {
+		console.log(this)
+	}
+}
+
+var c = {
+	name: "jay",
+	say() {
+		return function() {
+			console.log(this)
+		}
+	}
+}
+
+var d = {
+	name: "jay",
+	say() {
+		return () => console.log(this);
+	}
+}
+
+b.say() // b { name: "jay", say: [Function] }
+c.say() // [Function]
+c.say()() // window object
+d.say() // [Function]
+d.say()() // d { name: "jay", say: [Function] }
+```
+
+### Exercise 3: How would I fix this?
+
+```JS
+const character = { 
+	name: "Simon",
+	getCharacter() {
+		return this.name;
+	}
+};
+const giveMeTheCharacterNOW = character.getCharacter; 
+//How Would you fix this?
+console.log("?", giveMeTheCharacterNOW()); //this should return 'Simon' but doesn't
+```
+
+Solution
+
+```JS
+const character = { 
+	name: "Simon",
+	getCharacter() {
+		return this.name;
+	}
+};
+const giveMeTheCharacterNOW = character.getCharacter.bind(character); 
+//How Would you fix this?
+console.log("?", giveMeTheCharacterNOW()); // ? Simon
+```
+
+### Context vs Scope
+
+Every `function` invocation has both a scope and a context associated with it. Fundamentally, **scope is function-based** while **context is object-based**. In other words, scope pertains to the variable access of a `function` when it is invoked and is unique to each invocation. Context is always the value of the `this` keyword, which is a reference to the `object` that “owns” the currently executing code.
