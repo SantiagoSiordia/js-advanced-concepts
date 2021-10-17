@@ -179,3 +179,32 @@ JSON.stringify(obj1) === JSON.stringify(obj2);
 ```
 
 This will return `true` if all properties are the same and in the same order.
+
+## Type coercion
+
+**Type coercion** is the process of converting one type of value into another. There are 3 types of conversion in JavaScript.
+
+- to string
+- to boolean
+- to number
+
+```JS
+let num = 1; 
+let str = "1"; 
+num == str; // true
+// notice loose equality ==, not ===
+// double equals (==) will perform a type conversion
+// one or both sides may undergo conversions
+// in this case 1 == 1 or '1' == '1' before checking equality
+```
+
+> Strict equals: The triple equals (`===`) or strict equality compares two values without type coercion. If the values are not the same type, then the values are not equal. This is almost always the right way to check for equality in JavaScript, so you don't accidentally coerce a value and end up with a bug in your program. Here is the [MDN Equality Comparison](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness) page and 
+the [ECMAScript Comparison Algorithm](https://262.ecma-international.org/5.1/#sec-11.9.3)
+
+There are several edge cases that you will come in contact with in JavaScript as well. Check out this [Comparison Table](https://dorey.github.io/JavaScript-Equality-Table/) if you have questions about how types are coerced.
+
+### Static vs Dynamic typed
+
+The major difference between static and dynamic typed languages is when the types of variables are checked. Static typed languages (Java, C, C++, C#) are checked during the compile stage, so all types are known before run-time. Dynamic languages (JavaScript, PHP, Python, Ruby, Perl) are checked on the fly, during the execution stage. Also, after dividing the languages into dynamic and static, they are then divided again into **strong** and **weak** typed. Weakly typed (JavaScript, PHP, C, C++) languages can make type coercions implicitly while strongly typed (Python, Ruby, C#, Java) do not allow conversions between unrelated types.
+
+![dynamic-vs-static](./images/dynamic-vs-static.png)
