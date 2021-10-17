@@ -16,3 +16,10 @@ Understand advanced concepts of Javascript.
 - [Section 14: Javascript Basics (?)](./Section%2013)
 - [Section 15: Intermidiate JS](./Section%2014)
 - [Section 16: Extra bits(?)](./Section%2015)
+
+## What are advanced concepts in JavaScript?
+---
+
+Here's a [diagram](https://coggle.it/diagram/XE3ZoVj-rtA5hcxj/t/advanced-javascript) of what I'm trying to learn
+
+![repo-map](./repo-map/Advanced_Javascript.png)
